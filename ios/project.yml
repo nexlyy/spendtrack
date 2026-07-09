@@ -1,0 +1,51 @@
+# Проект как код: XcodeGen собирает .xcodeproj из этого файла. Так не нужно
+# вручную создавать проект в Xcode, удалять автогенерённые файлы и добавлять
+# «синюю» папку — вся сборка воспроизводима (и в CI, и на Маке за одну команду
+# `xcodegen generate`).
+name: SpendTrack
+
+options:
+  bundleIdPrefix: com.spendtrack
+  deploymentTarget:
+    iOS: "14.0"
+  createIntermediateGroups: true
+  minimumXcodeGenVersion: "2.35.0"
+
+settings:
+  base:
+    MARKETING_VERSION: "1.0.0"
+    CURRENT_PROJECT_VERSION: "1"
+    SWIFT_VERSION: "5.0"
+
+targets:
+  SpendTrack:
+    type: application
+    platform: iOS
+    sources:
+      - path: SpendTrack/AppDelegate.swift
+      - path: SpendTrack/SceneDelegate.swift
+      - path: SpendTrack/ViewController.swift
+      - path: SpendTrack/Assets.xcassets
+      # веб-бандл — как folder reference (структура каталогов сохраняется в .app,
+      # чтобы схема stapp:// находила web/index.html, web/app.js, web/icons/…)
+      - path: SpendTrack/web
+        type: folder
+    settings:
+      base:
+        PRODUCT_NAME: SpendTrack
+        PRODUCT_BUNDLE_IDENTIFIER: com.spendtrack.app
+        INFOPLIST_FILE: SpendTrack/Info.plist
+        GENERATE_INFOPLIST_FILE: "NO"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        TARGETED_DEVICE_FAMILY: "1"
+        CODE_SIGN_STYLE: Automatic
+
+schemes:
+  SpendTrack:
+    build:
+      targets:
+        SpendTrack: all
+    run:
+      config: Debug
+    archive:
+      config: Release

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f1115" />
+  <title>SpendTrack</title>
+  <link rel="icon" type="image/svg+xml" href="icons/favicon.svg" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <!-- установка как приложение (Android/iOS) -->
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="SpendTrack" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Шапка -->
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo" aria-hidden="true"></span>
+      <span class="brand-name">SpendTrack</span>
+    </div>
+    <nav class="periods" id="periods" data-i18n-aria="period"></nav>
+    <div class="topbar-actions">
+      <select id="currency" class="select select--ghost" data-i18n-aria="currency" hidden></select>
+      <button id="dataBtn" class="icon-btn" data-i18n-title="settings" data-i18n-aria="settings">⚙</button>
+      <button id="themeToggle" class="icon-btn" data-i18n-title="theme" data-i18n-aria="theme">◐</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Быстрый ввод -->
+    <section class="composer card">
+      <form id="addForm" autocomplete="off">
+        <input id="addInput" class="input input--lg" data-i18n-ph="add_ph" autofocus
+               data-i18n-aria="new_expense" />
+        <button class="btn btn--primary" type="submit" data-i18n="add"></button>
+      </form>
+      <div id="preview" class="preview" hidden></div>
+      <div class="hint" id="hint"></div>
+    </section>
+
+    <!-- Карточки итогов -->
+    <section class="stats" id="stats"></section>
+
+    <!-- Диаграмма + динамика -->
+    <section class="grid-2">
+      <div class="card chart-card">
+        <div class="card-head">
+          <h2 data-i18n="categories"></h2>
+          <span class="period-label" id="chartPeriod"></span>
+        </div>
+        <div class="chart-body">
+          <div class="donut-wrap">
+            <svg id="donut" viewBox="0 0 200 200" role="img" data-i18n-aria="chart_aria"></svg>
+          </div>
+          <ul class="legend" id="legend"></ul>
+        </div>
+        <div class="empty" id="chartEmpty" data-i18n="chart_empty" hidden></div>
+      </div>
+
+      <div class="card trend-card">
+        <div class="card-head"><h2 data-i18n="trend"></h2><span class="period-label" id="trendLabel"></span></div>
+        <div id="trend" class="trend"></div>
+      </div>
+    </section>
+
+    <!-- Инсайты -->
+    <section class="card insights-card" id="insightsCard" hidden>
+      <div class="card-head"><h2 data-i18n="ins_title"></h2></div>
+      <div id="insights" class="insights"></div>
+    </section>
+
+    <!-- Цели накоплений -->
+    <section class="card goals-card">
+      <div class="card-head">
+        <h2 data-i18n="goals"></h2>
+        <button id="addGoalBtn" class="btn btn--ghost btn--sm" data-i18n="add_goal"></button>
+      </div>
+      <div id="goals" class="budgets"></div>
+    </section>
+
+    <!-- Бюджеты -->
+    <section class="card budgets-card">
+      <div class="card-head">
+        <h2><span data-i18n="budgets"></span> <span class="muted">· <span data-i18n="month_lc"></span></span></h2>
+        <button id="addBudgetBtn" class="btn btn--ghost btn--sm" data-i18n="add_limit"></button>
+      </div>
+      <div id="budgets" class="budgets"></div>
+    </section>
+
+    <!-- Лента -->
+    <section class="card feed-card">
+      <div class="card-head">
+        <h2 data-i18n="feed"></h2>
+        <div class="card-head-actions">
+          <input id="feedSearch" type="search" class="input input--search" data-i18n-ph="search_ph" />
+          <select id="feedKind" class="select select--ghost">
+            <option value="" data-i18n="f_all"></option>
+            <option value="expense" data-i18n="f_expense"></option>
+            <option value="income" data-i18n="f_income"></option>
+            <option value="savings" data-i18n="f_savings"></option>
+          </select>
+          <button id="exportBtn" type="button" class="btn btn--ghost btn--sm" data-i18n="export_csv"></button>
+        </div>
+      </div>
+      <div id="feed" class="feed"></div>
+      <div class="empty" id="feedEmpty" data-i18n="feed_empty" hidden></div>
+    </section>
+
+    <footer class="foot muted">
+      SpendTrack <span id="version"></span> · <span data-i18n="footer"></span>
+    </footer>
+  </main>
+
+  <!-- Модалка редактирования -->
+  <div id="editModal" class="overlay hidden">
+    <form id="editForm" class="modal card">
+      <div class="card-head"><h2><span data-i18n="record"></span> <span id="editId" class="muted"></span></h2>
+        <button type="button" class="icon-btn" id="editClose" data-i18n-aria="close">✕</button></div>
+      <label class="field"><span data-i18n="amount"></span>
+        <input id="editAmount" class="input" type="number" step="0.01" min="0" /></label>
+      <label class="field"><span data-i18n="currency"></span>
+        <select id="editCurrency" class="select"></select></label>
+      <label class="field"><span data-i18n="type"></span>
+        <select id="editKind" class="select">
+          <option value="expense" data-i18n="t_expense"></option>
+          <option value="income" data-i18n="t_income"></option>
+          <option value="savings" data-i18n="t_savings"></option>
+        </select></label>
+      <label class="field"><span data-i18n="category"></span>
+        <select id="editCategory" class="select"></select></label>
+      <label class="field"><span data-i18n="note"></span>
+        <input id="editNote" class="input" /></label>
+      <label class="field"><span data-i18n="datetime"></span>
+        <input id="editDate" class="input" type="datetime-local" /></label>
+      <div class="modal-actions">
+        <button type="button" class="btn btn--danger" id="editDelete" data-i18n="delete"></button>
+        <button type="submit" class="btn btn--primary" data-i18n="save"></button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Модалка бюджета -->
+  <div id="budgetModal" class="overlay hidden">
+    <form id="budgetForm" class="modal card modal--sm">
+      <div class="card-head"><h2 data-i18n="limit_title"></h2>
+        <button type="button" class="icon-btn" id="budgetClose" data-i18n-aria="close">✕</button></div>
+      <label class="field"><span data-i18n="category"></span>
+        <select id="budgetCategory" class="select"></select></label>
+      <label class="field"><span data-i18n="limit_month"></span>
+        <input id="budgetLimit" class="input" type="number" step="1" min="0" placeholder="900" /></label>
+      <div class="modal-actions">
+        <button type="button" class="btn btn--danger" id="budgetDelete" data-i18n="remove"></button>
+        <button type="submit" class="btn btn--primary" data-i18n="save"></button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Модалка цели -->
+  <div id="goalModal" class="overlay hidden">
+    <form id="goalForm" class="modal card modal--sm">
+      <div class="card-head"><h2 data-i18n="goal_title"></h2>
+        <button type="button" class="icon-btn" id="goalClose" data-i18n-aria="close">✕</button></div>
+      <label class="field"><span data-i18n="goal_name"></span>
+        <input id="goalName" class="input" maxlength="60" data-i18n-ph="goal_name_ph" /></label>
+      <label class="field"><span data-i18n="goal_target"></span>
+        <input id="goalTarget" class="input" type="number" step="1" min="0" placeholder="5000" /></label>
+      <label class="field"><span data-i18n="goal_saved"></span>
+        <input id="goalSaved" class="input" type="number" step="1" min="0" placeholder="0" /></label>
+      <div class="modal-actions">
+        <button type="button" class="btn btn--danger" id="goalDelete" data-i18n="delete"></button>
+        <button type="submit" class="btn btn--primary" data-i18n="save"></button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Данные и настройки -->
+  <div id="dataModal" class="overlay hidden">
+    <form id="dataForm" class="modal card" onsubmit="return false">
+      <div class="card-head"><h2 data-i18n="settings"></h2>
+        <button type="button" class="icon-btn" id="dataClose" data-i18n-aria="close">✕</button></div>
+      <div id="dataBody" class="bank-body"></div>
+    </form>
+  </div>
+
+  <!-- Своё подтверждение (вместо системного confirm) -->
+  <div id="confirmModal" class="overlay hidden">
+    <div class="modal card modal--sm">
+      <div class="card-head"><h2 data-i18n="confirm_title"></h2></div>
+      <p id="confirmText" class="muted"></p>
+      <div class="modal-actions">
+        <button type="button" class="btn btn--ghost" id="confirmCancel" data-i18n="cancel"></button>
+        <button type="button" class="btn btn--danger" id="confirmOk" data-i18n="delete"></button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="core.js"></script>
+  <script src="i18n.js"></script>
+  <script src="store.js"></script>
+  <script src="localapi.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

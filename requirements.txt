@@ -1,0 +1,6 @@
+# Ядро и веб
+fastapi>=0.110,<1.0
+uvicorn[standard]>=0.27,<1.0
+
+# Telegram-бот. Версия важна: код писался под 22.x API.
+python-telegram-bot==22.7

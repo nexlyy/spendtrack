@@ -1,0 +1,18 @@
+# По умолчанию нормализуем текст к LF в репозитории
+* text=auto eol=lf
+
+# Windows-скрипты — только CRLF, иначе cmd/PowerShell ругаются
+*.cmd  text eol=crlf
+*.bat  text eol=crlf
+*.ps1  text eol=crlf
+
+# Shell-скрипты и gradle-обёртка должны остаться LF (Linux-сервер, macOS-CI)
+*.sh     text eol=lf
+gradlew  text eol=lf
+
+# Бинарники — не трогать
+*.png      binary
+*.jar      binary
+*.keystore binary
+*.aab      binary
+*.apk      binary

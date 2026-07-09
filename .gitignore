@@ -1,0 +1,49 @@
+# Python: окружение и кэш
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Локальная база и личные данные — не для репозитория
+data/
+*.db
+*.db-wal
+*.db-shm
+
+# Секреты
+.env
+*.env
+!*.env.example
+
+# Рабочие заметки и внутренние чек-листы релиза — держим только локально.
+# PLAY_RELEASE.md содержит пароль от ключа подписи, HANDOFF.md — черновые записи.
+HANDOFF.md
+PLAY_RELEASE.md
+.claude/
+
+# Android: подпись и артефакты сборки — сюда не должны попадать НИКОГДА
+android/keystore.properties
+*.keystore
+*.jks
+android/local.properties
+android/.gradle/
+android/build/
+android/app/build/
+# assets/web пересобирается из web/static, коммитить не нужно
+android/app/src/main/assets/web/
+
+# Собранные пакеты
+*.aab
+*.apk
+spendtrack-web.zip
+
+# iOS: .xcodeproj генерирует XcodeGen, остальное — сборка
+ios/SpendTrack.xcodeproj/
+ios/build/
+ios/Payload/
+ios/*.ipa
+*.xcuserstate
+
+# Системное
+.DS_Store
+Thumbs.db

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark light" />
+  <title>SpendTrack — Privacy Policy</title>
+  <meta name="description" content="SpendTrack is an offline, on-device expense tracker. It collects no data, has no internet access, no ads and no trackers." />
+  <style>
+    :root{
+      --bg:#0e1016; --panel:#171c28; --panel-2:#1d2330; --line:#262d3d;
+      --text:#e8eaf0; --muted:#9aa3b2; --faint:#5b6276; --brand:#34d399; --brand2:#22d3ee;
+    }
+    *{box-sizing:border-box}
+    html{-webkit-text-size-adjust:100%}
+    body{
+      margin:0; background:radial-gradient(1200px 600px at 50% -200px, #16233020, transparent), var(--bg);
+      color:var(--text); font:16px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    }
+    .wrap{max-width:760px; margin:0 auto; padding:0 20px 80px}
+    header.hero{
+      text-align:center; padding:56px 20px 40px;
+      background:linear-gradient(180deg, #12182420, transparent);
+    }
+    .logo{
+      width:76px; height:76px; border-radius:20px; margin:0 auto 18px;
+      background:linear-gradient(135deg,var(--brand),var(--brand2));
+      display:flex; align-items:center; justify-content:center; box-shadow:0 12px 40px #34d39926;
+    }
+    .logo svg{width:52px; height:52px}
+    h1{font-size:30px; margin:0 0 6px; letter-spacing:-.02em}
+    .sub{color:var(--muted); margin:0}
+    .updated{color:var(--faint); font-size:13px; margin-top:14px}
+    .tldr{
+      background:linear-gradient(135deg,#34d39912,#22d3ee0c);
+      border:1px solid #34d39933; border-radius:16px; padding:18px 20px; margin:28px 0 8px;
+    }
+    .tldr b{color:var(--brand)}
+    h2{font-size:19px; margin:34px 0 10px; padding-top:8px}
+    h2 .n{color:var(--brand); font-variant-numeric:tabular-nums; margin-right:8px; font-size:15px}
+    p{margin:10px 0}
+    ul{margin:10px 0; padding-left:22px}
+    li{margin:6px 0}
+    a{color:var(--brand); text-decoration:none; border-bottom:1px solid #34d39955}
+    a:hover{border-bottom-color:var(--brand)}
+    .card{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:2px 20px; margin:18px 0}
+    hr{border:0; border-top:1px solid var(--line); margin:30px 0}
+    .muted{color:var(--muted)}
+    footer{color:var(--faint); font-size:13px; text-align:center; margin-top:40px}
+    footer a{color:var(--muted)}
+    @media (max-width:520px){ h1{font-size:25px} header.hero{padding:40px 16px 28px} }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="logo" aria-hidden="true">
+      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 40 L28 30 L36 35 L46 22" fill="none" stroke="#052e22" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="46" cy="22" r="3.4" fill="#052e22"/>
+      </svg>
+    </div>
+    <h1>Privacy Policy</h1>
+    <p class="sub">SpendTrack — offline personal expense tracker</p>
+    <p class="updated">Last updated: July 5, 2026</p>
+  </header>
+
+  <main class="wrap">
+    <div class="tldr">
+      <b>In short:</b> SpendTrack works entirely on your device and offline. It has
+      <b>no internet access</b>, collects <b>no personal data</b>, contains
+      <b>no ads, analytics or trackers</b>, and never sends your information anywhere.
+      Everything you enter stays on your phone.
+    </div>
+
+    <p>This Privacy Policy explains how the SpendTrack mobile application (the
+    “App”, “we”, “our”) handles information. By using the App you agree to this
+    policy. We wrote it to be short and honest, because there is genuinely very
+    little to disclose: the App is designed so your financial data never leaves
+    your device.</p>
+
+    <h2><span class="n">1</span>Who we are</h2>
+    <p>SpendTrack is an independent, privacy-first budgeting tool that helps you
+    record expenses, income, budgets and savings goals, and optionally import a
+    bank statement file to sort transactions into categories. There is no account,
+    no sign-up, and no cloud service behind the App.</p>
+
+    <h2><span class="n">2</span>What data we collect</h2>
+    <div class="card">
+      <p><b>None.</b> We do not collect, transmit, sell, rent or share any personal
+      data. The App requests no <code>INTERNET</code> permission, so it is
+      technically unable to send your data anywhere. There are no analytics SDKs,
+      no advertising SDKs, no crash-reporting services and no third-party trackers
+      embedded in the App.</p>
+    </div>
+    <p>Because we collect nothing, there is no personal profile of you, no usage
+    history on our side, and nothing for us to lose in a data breach. We simply
+    never receive your information in the first place.</p>
+
+    <h2><span class="n">3</span>Where your data is stored</h2>
+    <p>All information you create in the App — expense and income records, notes,
+    categories, budgets, savings goals, recurring payments, exchange rates and app
+    settings — is stored <b>locally on your device only</b>, inside the App’s
+    private on-device database (IndexedDB). This data:</p>
+    <ul>
+      <li>never leaves your device automatically;</li>
+      <li>is not accessible to us or to any third party;</li>
+      <li>is removed when you delete the App or use the in-app “Delete all data” option.</li>
+    </ul>
+
+    <h2><span class="n">4</span>Backups you create yourself</h2>
+    <p>The App includes a “Save backup” feature. When you use it, the App generates
+    a file containing your data and hands it to your device’s standard save/share
+    dialog. <b>You</b> choose what happens to that file — for example saving it to
+    local storage, or sending it to your own cloud drive. The App does not upload
+    this file anywhere on its own and has no server to upload it to. Any storage or
+    cloud provider you personally choose is governed by that provider’s own privacy
+    policy, not ours.</p>
+    <p>To keep your data private, the App also disables Android’s automatic cloud
+    backup, so your database is not copied off the device without your explicit
+    action.</p>
+
+    <h2><span class="n">5</span>Importing bank statements</h2>
+    <p>You may optionally import a bank statement (CSV or XLSX) that you exported
+    yourself. The file is read and parsed <b>entirely on your device</b> to
+    recognise merchants and assign categories. Statement contents are never
+    uploaded, and the file is not retained by the App beyond the import — only the
+    resulting expense/income records you choose to keep are saved locally.</p>
+
+    <h2><span class="n">6</span>Permissions</h2>
+    <p>The App does not request access to your location, contacts, camera,
+    microphone, photos or any other sensitive permission. When you pick a file to
+    import or restore, this happens through your operating system’s file picker,
+    which grants the App one-time access to the single file you selected and no
+    persistent access to your storage.</p>
+
+    <h2><span class="n">7</span>Third parties and advertising</h2>
+    <p>There are no third-party services, no advertising networks, no in-app
+    purchases and no external content loaded from the internet. The App is fully
+    self-contained.</p>
+
+    <h2><span class="n">8</span>Children’s privacy</h2>
+    <p>The App is a general-purpose utility and is not directed at children. It does
+    not knowingly collect any information from anyone, including children under 13
+    (or the equivalent minimum age in your country).</p>
+
+    <h2><span class="n">9</span>Data security</h2>
+    <p>Because your data stays on your device and is never transmitted, its security
+    is tied to the security of your own device. We recommend protecting your phone
+    with a screen lock and keeping your operating system up to date. Note that a
+    backup file you export is a plain data file — store it somewhere you trust.</p>
+
+    <h2><span class="n">10</span>Your rights</h2>
+    <p>You are always in full control of your data. You can view, edit, export or
+    permanently delete all of it at any time from within the App, without asking us,
+    because it lives only on your device. Since we hold no data about you, there is
+    nothing for us to access, correct or erase on our side.</p>
+
+    <h2><span class="n">11</span>International users</h2>
+    <p>The App processes data only locally on your device, in the country where you
+    use it. No cross-border transfer of your personal data to us or to any server
+    takes place, because no such transfer happens at all.</p>
+
+    <h2><span class="n">12</span>Changes to this policy</h2>
+    <p>We may update this Privacy Policy from time to time, for example to reflect
+    new features. When we do, we will revise the “Last updated” date at the top of
+    this page. Continued use of the App after changes are posted constitutes your
+    acceptance of the updated policy.</p>
+
+    <h2><span class="n">13</span>Contact us</h2>
+    <p>If you have any questions about this Privacy Policy or how the App handles
+    information, contact us at:
+    <a href="mailto:syncaeoff@gmail.com">syncaeoff@gmail.com</a>.</p>
+
+    <hr />
+    <footer>
+      © 2026 SpendTrack · Data stays on your device.<br />
+      <a href="mailto:syncaeoff@gmail.com">syncaeoff@gmail.com</a>
+    </footer>
+  </main>
+</body>
+</html>

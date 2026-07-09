@@ -1,0 +1,32 @@
+# systemd-юнит веб-версии SpendTrack (FastAPI + uvicorn).
+# Положить в /etc/systemd/system/spendtrack-web.service, затем:
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now spendtrack-web
+#
+# Веб слушает 127.0.0.1 — наружу выводить через nginx с TLS (см. nginx.conf.example).
+
+[Unit]
+Description=SpendTrack web (FastAPI)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=spendtrack
+Group=spendtrack
+WorkingDirectory=/opt/spendtrack
+EnvironmentFile=/etc/spendtrack/spendtrack.env
+ExecStart=/opt/spendtrack/venv/bin/python -m uvicorn web.app:app --host 127.0.0.1 --port 8770
+Restart=on-failure
+RestartSec=3
+
+MemoryMax=250M
+
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/spendtrack
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

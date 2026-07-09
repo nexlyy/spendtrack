@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">SpendTrack</string>
+    <!-- Сервер больше не нужен: приложение открывает локальные ассеты
+         (file:///android_asset/web/index.html), данные хранятся на устройстве. -->
+</resources>

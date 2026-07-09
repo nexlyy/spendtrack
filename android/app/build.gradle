@@ -1,0 +1,52 @@
+plugins {
+    id 'com.android.application'
+}
+
+// Ключ подписи читаем из android/keystore.properties (он в .gitignore — секрет
+// в репозиторий не попадает). Если файла нет, релиз соберётся неподписанным.
+def keystorePropsFile = rootProject.file('keystore.properties')
+def keystoreProps = new Properties()
+if (keystorePropsFile.exists()) {
+    keystoreProps.load(new FileInputStream(keystorePropsFile))
+}
+
+android {
+    namespace 'com.spendtrack.app'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'com.spendtrack.app'
+        minSdk 26
+        targetSdk 35            // требование Google Play для новых приложений
+        versionCode 1
+        versionName '1.0.0'
+    }
+
+    signingConfigs {
+        release {
+            if (keystorePropsFile.exists()) {
+                storeFile file(keystoreProps['storeFile'])
+                storePassword keystoreProps['storePassword']
+                keyAlias keystoreProps['keyAlias']
+                keyPassword keystoreProps['keyPassword']
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            // minify выключен: приложение крошечное, а R8 без keep-правил может
+            // срезать метод @JavascriptInterface (мост saveToDownloads зовётся по имени).
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            if (keystorePropsFile.exists()) {
+                signingConfig signingConfigs.release
+            }
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}

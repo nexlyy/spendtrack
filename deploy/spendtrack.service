@@ -1,0 +1,32 @@
+# systemd-юнит Telegram-бота SpendTrack.
+# Положить в /etc/systemd/system/spendtrack.service, затем:
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now spendtrack
+
+[Unit]
+Description=SpendTrack Telegram bot
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=spendtrack
+Group=spendtrack
+WorkingDirectory=/opt/spendtrack
+EnvironmentFile=/etc/spendtrack/spendtrack.env
+ExecStart=/opt/spendtrack/venv/bin/python -m spendtrack.bot
+Restart=on-failure
+RestartSec=3
+
+# Ограничение памяти (актуальная директива, не устаревшее MemoryLimit).
+MemoryMax=200M
+
+# Изоляция: процессу нужны только свои файлы.
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/spendtrack
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
