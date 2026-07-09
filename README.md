@@ -75,3 +75,7 @@ spendtrack/, web/  legacy self-hosted server (see below)
 ## The old server
 
 Before it went offline-first, SpendTrack was a Telegram bot plus a FastAPI web app over SQLite that also mirrored every entry into an Obsidian vault as Markdown. That code still lives in `spendtrack/` and `web/app.py` — the app doesn't touch it anymore, but it's kept for anyone who wants to self-host the bot version. `.env.example` shows the settings it reads.
+
+## License
+
+MIT — see [LICENSE](LICENSE).
